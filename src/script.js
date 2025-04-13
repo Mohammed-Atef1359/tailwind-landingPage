@@ -88,29 +88,44 @@ const swipper = new Swiper(".articleSwiper", {
 // article 
 
 
+// contact form 
+
+function submitform(){
+
+  const email = document.querySelector('#email').value;
+  const phone = document.querySelector('#phone').value;
+  const message = document.querySelector('.message');
 
 
-
-function submitForm() {
-  var email = document.getElementById("email").value;
-  var phone = document.getElementById("phone").value;
-
-  var data = {
-    email: email,
-    phone: phone
-  };
-
-  // The URL of the Google Apps Script Web App (replace this with your actual URL)
-  var url = 'https://script.google.com/macros/s/AKfycby-72NOv2VbO06pi_H9K5ROQ_h68AeIEf2k2Ezk2TlReP6W55BUQ0faCJg7Om5cQnEzrg/exec';
+  var data ={
+    email:email,
+    phone:phone
+  }
+  var url="https://script.google.com/macros/s/AKfycby-72NOv2VbO06pi_H9K5ROQ_h68AeIEf2k2Ezk2TlReP6W55BUQ0faCJg7Om5cQnEzrg/exec";
 
   fetch(url, {
-    method: 'POST',
+    method: 'post',
     body: new URLSearchParams(data),
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+      'content-type' : 'application/x-www-form-urlencoded'
+    },
+    mode: "no-cors",
   })
+
   .then(response => response.text())
-  .then(result => alert("Data Sent Successfully!"))
-  .catch(error => alert("Error: " + error));
+  .then(result => {
+    message.innerHTML = `<p> ${result} Data Sent Successfully! </p>`;
+    setTimeout(function() {
+      document.querySelector('#email').value = "";
+     document.querySelector('#phone').value = "";
+      message.innerHTML = "";
+    }, 3000);
+    
+
+  })
+  .catch(error => {
+    message.innerHTML = `<p> ${error} </p>`;
+  })
+ 
 }
+
