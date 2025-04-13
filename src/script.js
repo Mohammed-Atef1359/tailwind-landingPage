@@ -1,8 +1,3 @@
-// import Swiper from 'swiper';
-// // import Swiper styles
-// import 'swiper/css';
-
-
 const mobiletoggle =document.querySelector(".mobile-nav");
 const mobilemenu =document.querySelector(".mobile-menu");
 
